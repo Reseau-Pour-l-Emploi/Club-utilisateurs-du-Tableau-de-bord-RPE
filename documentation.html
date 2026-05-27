@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<link rel="icon" type="image/svg+xml" href="logo_rpe.svg"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Documentation - Club Utilisateurs TDB RPE</title>
+<link rel="stylesheet" href="style.css"/>
+<style>
+.dl-link{display:inline-flex;align-items:center;gap:.32rem;font-size:.72rem;font-weight:600;padding:.2rem .6rem;border-radius:4px;background:var(--bg);border:1px solid var(--border);color:var(--muted);margin-right:.32rem;text-decoration:none;transition:.12s;}
+.dl-link:hover{border-color:var(--teal);color:var(--teal);}
+.res-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:.95rem 1.05rem;display:flex;gap:.8rem;align-items:flex-start;box-shadow:var(--sh);transition:.15s;}
+.res-card:hover{border-color:var(--teal);}
+.res-icon{width:38px;height:38px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
+.res-ppt{background:#fdeee6;} .res-pdf{background:#fdeee6;} .res-xls{background:#e8f5e9;} .res-vid{background:#e5eaf4;}
+/* glossaire wiki */
+.glos-search-bar{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin-bottom:1rem;}
+.glos-filters{display:flex;flex-wrap:wrap;gap:.3rem;}
+.glos-entry{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.1rem;margin-bottom:.65rem;box-shadow:var(--sh);position:relative;}
+.glos-entry:hover{border-color:#c8d8ea;}
+.glos-term{font-weight:700;color:var(--navy);font-size:.97rem;}
+.glos-cat-badge{display:inline-block;font-size:.62rem;font-weight:600;padding:.1rem .42rem;border-radius:3px;margin-left:.4rem;vertical-align:middle;}
+.glos-def{font-size:.85rem;color:var(--text);margin:.35rem 0 .2rem;}
+.glos-ex{font-size:.79rem;color:var(--muted);font-style:italic;}
+.glos-footer{display:flex;align-items:center;justify-content:space-between;margin-top:.6rem;flex-wrap:wrap;gap:.35rem;}
+.glos-propose-link{font-size:.72rem;color:var(--teal);cursor:pointer;background:none;border:none;font-family:'Work Sans',sans-serif;text-decoration:underline;padding:0;}
+.glos-propose-link:hover{color:var(--navy);}
+/* propose new */
+.prop-btn{display:inline-flex;align-items:center;gap:.35rem;background:#fffbe6;border:1.5px dashed #f59e0b;color:#7a4700;border-radius:6px;padding:.38rem .9rem;font-size:.78rem;font-weight:600;cursor:pointer;margin-bottom:1rem;font-family:'Work Sans',sans-serif;transition:.15s;}
+.prop-btn:hover{background:#f59e0b;color:#fff;}
+/* pending proposals (admin) */
+.pending-section{background:#fffbe6;border:1px solid #fcd34d;border-radius:var(--r);padding:1.1rem;margin-bottom:1.25rem;}
+.pending-section h4{font-size:.88rem;font-weight:700;color:#7a4700;margin-bottom:.75rem;}
+.prop-card{background:var(--white);border:1px solid #fcd34d;border-radius:var(--r);padding:.9rem 1rem;margin-bottom:.6rem;}
+.prop-card.correction{border-color:#bfdbfe;background:#eff6ff;}
+.prop-card:last-child{margin-bottom:0;}
+.prop-type{font-size:.66rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:.3rem;}
+.prop-term-name{font-weight:700;color:var(--navy);}
+.prop-body{font-size:.82rem;color:var(--text);margin:.3rem 0;}
+.prop-by{font-size:.7rem;color:var(--muted);}
+.prop-actions{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.6rem;}
+/* modal contrib */
+#contrib-modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.42);z-index:600;align-items:flex-start;justify-content:center;padding:1.5rem 1rem;overflow-y:auto;}
+#contrib-modal-bg.open{display:flex;}
+#contrib-modal{background:#fff;border-radius:10px;padding:1.6rem;width:min(560px,100%);box-shadow:0 8px 32px rgba(0,0,0,.2);margin:auto;}
+</style>
+</head>
+<body>
+<nav id="nav">
+  <a href="index.html" class="brand"><img src="logo_rpe.svg" alt="RPE" class="brand-logo-img"/><div><span class="brand-name">Club Utilisateurs</span><span class="brand-sub">Tableau de bord RPE</span></div></a>
+  <div class="nav-links">
+    <a href="index.html">Accueil</a><a href="documentation.html">Documentation</a>
+    <a href="glossaire.html">Glossaire</a><a href="qr.html">Q&amp;R</a><a href="agenda.html">Agenda</a>
+    <a href="ressources.html">Ressources</a><a href="newsletter.html">Newsletters</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <button class="hamburger" onclick="toggleNav()">&#9776;</button>
+</nav>
+<div id="mob-menu">
+  <a href="index.html">Accueil</a><a href="documentation.html">Documentation</a>
+  <a href="glossaire.html">Glossaire</a>
+  <a href="qr.html">Q&amp;R</a><a href="agenda.html">Agenda</a>
+  <a href="ressources.html">Ressources</a><a href="newsletter.html">Newsletters</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+
+</div>
+
+<div class="pw">
+  <div class="sec-label">Documentation</div>
+  <h1 class="page-title">Contenu des livraisons &amp; ressources</h1>
+  <p class="page-sub">Notes de livraison, supports de presentation, guides utilisateurs, exercices pratiques et glossaire des indicateurs.</p>
+
+  <div class="tabs" id="main-tabs">
+    <button class="tab active" onclick="switchTab('livraisons',this)">&#128203; Livraisons</button>
+    <button class="tab" onclick="switchTab('supports',this)">&#128202; Supports</button>
+    <button class="tab" onclick="switchTab('guides',this)">&#128216; Guides</button>
+    <button class="tab" onclick="switchTab('exercices',this)">&#127947; Exercices</button>
+  </div>
+
+  <div id="livraisons" class="tab-panel active"><div id="livraisons-body"></div></div>
+  <div id="supports"   class="tab-panel"><div id="supports-body"></div></div>
+  <div id="guides"     class="tab-panel"><div id="guides-body"></div></div>
+  <div id="exercices"  class="tab-panel"><div id="exercices-body"></div></div>
+
+    <!-- PROPOSE NEW -->
+    <button class="prop-btn" onclick="openContrib('new',null)">&#128221; Proposer un nouveau terme</button>
+
+    <!-- SEARCH + FILTER -->
+    <div class="glos-search-bar">
+      <input class="fc" id="glos-q" type="text" placeholder="&#128269; Rechercher un terme..." oninput="renderGlos()" style="max-width:280px;"/>
+      <div class="glos-filters">
+        <button class="gf-btn on" onclick="setGlosCat('all',this)">Tous</button>
+        <button class="gf-btn" onclick="setGlosCat('mesure',this)">Mesures</button>
+        <button class="gf-btn" onclick="setGlosCat('dimension',this)">Dimensions</button>
+      </div>
+    </div>
+    <div id="glos-add-wrap"></div>
+    <div id="glos-body"></div>
+    <div id="glos-empty" style="display:none;text-align:center;padding:2rem;color:var(--muted);">Aucun terme trouve.</div>
+  </div>
+</div>
+
+<footer>
+  <strong>Club Utilisateurs - Tableau de bord RPE</strong><br/>
+  <div class="footer-links">
+    <a href="mailto:tdbrpe.00613@francetravail.fr">tdbrpe.00613@francetravail.fr</a>
+    <a href="frequentation.html">Frequentation du site</a>
+    <button onclick="openLoginModal()" style="background:none;border:none;cursor:pointer;color:rgba(255,255,255,.4);font-size:.75rem;font-family:inherit;">&#128274; Admin</button>
+  </div>
+</footer>
+<div id="toast"></div>
+<script src="data.js"></script><script src="nav.js"></script><script src="admin.js"></script><script src="visits.js"></script>
+<script>
+DB.init();VISITS.seed();initAdmin();
+
+function switchTab(id,btn){
+  document.querySelectorAll('#main-tabs .tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');document.getElementById(id).classList.add('active');
+}
+if(location.hash==='#glossaire')setTimeout(()=>document.getElementById('tab-glos').click(),50);
+
+/* ── RESOURCE CARDS ───────────────────────────── */
+const fileIcons={PPTX:'📊',PDF:'📄',XLSX:'📗',Figma:'🎨',Video:'🎬'};
+const fileClass={PPTX:'res-ppt',PDF:'res-pdf',XLSX:'res-xls',Video:'res-vid',Figma:'res-ppt'};
+
+function renderResCards(sec,bodyId){
+  const items=DB.section(sec);
+  document.getElementById(bodyId).innerHTML=
+    admAdd(sec,'un element')+
+    '<div class="grid-2">'+items.map(it=>`<div class="res-card">
+      <div class="res-icon ${fileClass[it.fileType]||'res-pdf'}">${fileIcons[it.fileType]||'📄'}</div>
+      <div style="flex:1;min-width:0;"><h4>${it.title}</h4><p style="font-size:.79rem;color:var(--muted);margin:.18rem 0 .45rem;">${it.desc||''}</p>
+      ${it.url&&it.url!='#'?`<a href="${it.url}" class="dl-link" target="_blank">&#128229; Telecharger (${it.fileType})</a>`:'<span style="font-size:.74rem;color:var(--muted);">Lien non configure</span>'}
+      ${admCtrl(sec,it.id)}</div></div>`).join('')+'</div>';
+}
+
+function renderLivraisons(){
+  const items=DB.section('livraisons');
+  document.getElementById('livraisons-body').innerHTML=
+    admAdd('livraisons','une livraison')+
+    '<div class="timeline">'+items.map(it=>`<div class="tl-item">
+      <div class="tl-date"><div class="day">${it.day}</div><div class="mon">${it.mon}</div></div>
+      <div class="tl-content" style="flex:1;min-width:0;">
+        <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-bottom:.25rem;">
+          <h3>${it.title}</h3>${it.badge&&it.badgeType?`<span class="badge ${it.badgeType}">${it.badge}</span>`:''}
+        </div><p>${it.desc}</p>
+        <div style="margin-top:.65rem;display:flex;gap:.35rem;flex-wrap:wrap;">
+          ${it.noteUrl&&it.noteUrl!='#'?`<a href="${it.noteUrl}" class="dl-link" target="_blank">&#128196; Note PDF</a>`:''}
+          ${it.supportUrl&&it.supportUrl!='#'?`<a href="${it.supportUrl}" class="dl-link" target="_blank">&#128202; Support</a>`:''}
+          ${it.replayUrl&&it.replayUrl!='#'?`<a href="${it.replayUrl}" class="dl-link" target="_blank">&#9654; Replay</a>`:''}
+        </div>
+        ${admCtrl('livraisons',it.id)}
+      </div></div>`).join('')+'</div>';
+}
+
+function renderExercices(){
+  const items=DB.section('exercices');
+  document.getElementById('exercices-body').innerHTML=
+    admAdd('exercices','un exercice')+
+    '<div class="grid-2">'+items.map(it=>`<div class="res-card">
+      <div class="res-icon res-pdf">📄</div>
+      <div style="flex:1;min-width:0;"><span class="badge ${it.levelClass}" style="margin-bottom:.35rem;">${it.level}</span>
+      <h4>${it.title}</h4><p style="font-size:.79rem;color:var(--muted);margin:.18rem 0 .45rem;">${it.desc||''}</p>
+      <div style="display:flex;gap:.32rem;flex-wrap:wrap;">
+        ${it.url&&it.url!='#'?`<a href="${it.url}" class="dl-link" target="_blank">&#128229; Telecharger</a>`:''}
+        ${it.url2&&it.url2!='#'?`<a href="${it.url2}" class="dl-link" target="_blank">&#128196; Corrige</a>`:''}
+      </div>${admCtrl('exercices',it.id)}</div></div>`).join('')+'</div>';
+}
+
+/* ── GLOSSAIRE WIKI ───────────────────────────── */
+let glosCat='all';
+function setGlosCat(cat,btn){
+  glosCat=cat;
+  document.querySelectorAll('.glos-filters .gf-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');renderGlos();
+}
+
+/* Contribution modal */
+let contribContext={type:'new',termId:null};
+function openContrib(type,termId){
+  contribContext={type,termId};
+  const isCorr=type==='correction';
+  document.getElementById('contrib-title').textContent=isCorr?'Suggerer une correction':'Proposer un nouveau terme';
+  document.getElementById('contrib-term-field').style.display=isCorr?'none':'';
+  document.getElementById('contrib-cat-field').style.display=isCorr?'none':'';
+  document.getElementById('contrib-err').style.display='none';
+  /* pre-fill for correction */
+  if(isCorr&&termId){
+    const term=DB.section('glossaire').find(g=>String(g.id)===String(termId));
+    if(term){
+      document.getElementById('contrib-d').value=term.d;
+      document.getElementById('contrib-e').value=term.e||'';
+    }
+  } else {
+    document.getElementById('contrib-t').value='';
+    document.getElementById('contrib-d').value='';
+    document.getElementById('contrib-e').value='';
+    document.getElementById('contrib-c').value='mesure';
+  }
+  document.getElementById('contrib-by').value='';
+  document.getElementById('contrib-modal-bg').classList.add('open');
+  setTimeout(()=>document.getElementById('contrib-by').focus(),60);
+}
+function closeContrib(){document.getElementById('contrib-modal-bg').classList.remove('open');}
+
+function submitContrib(){
+  const by=document.getElementById('contrib-by').value.trim();
+  const d=document.getElementById('contrib-d').value.trim();
+  const e_val=document.getElementById('contrib-e').value.trim();
+  const err=document.getElementById('contrib-err');
+  if(!d){err.textContent='La definition est obligatoire.';err.style.display='block';return;}
+  const prop={type:contribContext.type,by:by||'Anonyme',d,e:e_val};
+  if(contribContext.type==='new'){
+    const t=document.getElementById('contrib-t').value.trim();
+    if(!t){err.textContent='Le terme est obligatoire.';err.style.display='block';return;}
+    prop.t=t;prop.c=document.getElementById('contrib-c').value;
+  } else {
+    prop.termId=contribContext.termId;
+    const term=DB.section('glossaire').find(g=>String(g.id)===String(contribContext.termId));
+    prop.t=term?term.t:'?';prop.c=term?term.c:'mesure';
+  }
+  GLOS_PROP.add(prop);
+  closeContrib();
+  showToast('Merci ! Votre proposition a ete soumise a validation.');
+}
+
+/* Admin: render pending proposals */
+function renderPendingProposals(){
+  const wrap=document.getElementById('glos-pending-wrap');
+  if(!isAdmin()){wrap.innerHTML='';return;}
+  const pending=GLOS_PROP.pending();
+  updatePendingBadge();
+  if(!pending.length){wrap.innerHTML='';return;}
+  wrap.innerHTML=`<div class="pending-section">
+    <h4>&#128203; ${pending.length} proposition(s) en attente de validation</h4>
+    ${pending.map(p=>{
+      const isCorr=p.type==='correction';
+      return`<div class="prop-card${isCorr?' correction':''}">
+        <div class="prop-type">${isCorr?'Correction proposee':'Nouveau terme propose'}</div>
+        <div><span class="prop-term-name">${p.t}</span>
+          <span class="badge ${p.c==='mesure'?'badge-teal':'badge-navy'}" style="margin-left:.4rem;">${p.c==='mesure'?'Mesure':'Dimension'}</span>
+        </div>
+        <div class="prop-body">${p.d}</div>
+        ${p.e?`<div class="prop-ex">Ex : ${p.e}</div>`:''}
+        <div class="prop-by">Propose par <strong>${p.by}</strong> le ${p.date}</div>
+        <div class="prop-actions">
+          <button class="adm-btn ok" onclick="validateProp(${p.id})">&#10003; Valider</button>
+          <button class="adm-btn" onclick="editProp(${p.id})">&#9998; Modifier puis valider</button>
+          <button class="adm-btn del" onclick="rejectProp(${p.id})">&#10005; Rejeter</button>
+        </div>
+      </div>`;
+    }).join('')}
+  </div>`;
+}
+
+function validateProp(id){
+  const p=GLOS_PROP.all().find(x=>x.id===id);
+  if(!p)return;
+  if(p.type==='new'){
+    DB.add('glossaire',{t:p.t,c:p.c,d:p.d,e:p.e||'',status:'approved'});
+  } else {
+    DB.update('glossaire',p.termId,{d:p.d,e:p.e||''});
+  }
+  GLOS_PROP.approve(id);
+  renderPendingProposals();renderGlos();
+  showToast('Terme valide et publie !');
+}
+
+function editProp(id){
+  const p=GLOS_PROP.all().find(x=>x.id===id);
+  if(!p)return;
+  openAdmModal('glossaire',{t:p.t,c:p.c,d:p.d,e:p.e||''},function(data){
+    if(p.type==='new'){DB.add('glossaire',Object.assign({status:'approved'},data));}
+    else{DB.update('glossaire',p.termId,data);}
+    GLOS_PROP.approve(id);
+    renderPendingProposals();renderGlos();
+    showToast('Terme modifie et publie !');
+  });
+}
+
+function rejectProp(id){
+  if(!confirm('Rejeter cette proposition ?'))return;
+  GLOS_PROP.reject(id);renderPendingProposals();updatePendingBadge();
+  showToast('Proposition rejetee.');
+}
+
+function updatePendingBadge(){
+  const badge=document.getElementById('glos-pending-badge');
+  const n=GLOS_PROP.pending().length;
+  if(n&&isAdmin()){badge.textContent=n;badge.style.display='inline';}
+  else{badge.style.display='none';}
+}
+
+function renderGlos(){
+  document.getElementById('glos-add-wrap').innerHTML=admAdd('glossaire','un terme');
+  const q=(document.getElementById('glos-q').value||'').toLowerCase();
+  const items=DB.section('glossaire').filter(g=>g.status==='approved').filter(g=>{
+    const matchCat=glosCat==='all'||g.c===glosCat;
+    const matchQ=!q||(g.t+g.d+(g.e||'')).toLowerCase().includes(q);
+    return matchCat&&matchQ;
+  });
+  const isEmpty=!items.length;
+  document.getElementById('glos-empty').style.display=isEmpty?'block':'none';
+  document.getElementById('glos-body').innerHTML=isEmpty?'':
+    items.map(g=>`<div class="glos-entry" id="glos-${g.id}">
+      <div>
+        <span class="glos-term">${g.t}</span>
+        <span class="glos-cat-badge badge ${g.c==='mesure'?'badge-teal':'badge-navy'}">${g.c==='mesure'?'Mesure / Indicateur':'Dimension / Variable'}</span>
+      </div>
+      <div class="glos-def">${g.d}</div>
+      ${g.e?`<div class="glos-ex">${g.e}</div>`:''}
+      <div class="glos-footer">
+        <button class="glos-propose-link" onclick="openContrib('correction','${g.id}')">&#9998; Suggerer une correction</button>
+        ${admCtrl('glossaire',g.id)}
+      </div>
+    </div>`).join('');
+}
+
+/* close contrib on backdrop */
+document.getElementById('contrib-modal-bg').addEventListener('click',function(ev){if(ev.target===this)closeContrib();});
+
+function _refreshPage(){
+  renderLivraisons();
+  renderResCards('supports','supports-body');
+  renderResCards('guides','guides-body');
+  renderExercices();
+}
+_refreshPage();
+</script>
+</body></html>

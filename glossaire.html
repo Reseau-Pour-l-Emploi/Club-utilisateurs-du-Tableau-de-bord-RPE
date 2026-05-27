@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Glossaire - Club Utilisateurs TDB RPE</title>
+<link rel="icon" type="image/svg+xml" href="logo_rpe.svg"/>
+<link rel="stylesheet" href="style.css"/>
+<style>
+.glos-hero{background:var(--navy);padding:1.25rem 1.5rem;}
+.glos-hero-inner{max-width:1060px;margin:0 auto;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;}
+.glos-hero h1{font-size:1.2rem;font-weight:700;color:#fff;margin-bottom:.2rem;}
+.glos-hero p{font-size:.82rem;color:rgba(255,255,255,.58);}
+.glos-search-bar{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin-bottom:1.1rem;}
+.az-bar{display:flex;flex-wrap:wrap;gap:.2rem;margin-bottom:1.1rem;}
+.az-btn{background:none;border:1px solid var(--border);border-radius:4px;color:var(--muted);font-family:'Work Sans',sans-serif;font-size:.75rem;font-weight:600;padding:.22rem .5rem;cursor:pointer;transition:.15s;min-width:28px;text-align:center;}
+.az-btn:hover,.az-btn.on{background:var(--navy);border-color:var(--navy);color:#fff;}
+.count-chip{background:var(--teal-bg);border:1px solid #b2dfd8;border-radius:99px;padding:.2rem .75rem;font-size:.75rem;color:var(--teal);font-weight:600;}
+</style>
+</head>
+<body>
+<nav id="nav">
+  <a href="index.html" class="brand">
+    <img src="logo_rpe.svg" alt="RPE" class="brand-logo-img"/>
+    <div><span class="brand-name">Club Utilisateurs</span><span class="brand-sub">Tableau de bord RPE</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Accueil</a><a href="documentation.html">Documentation</a>
+    <a href="glossaire.html">Glossaire</a><a href="qr.html">Q&amp;R</a>
+    <a href="agenda.html">Agenda</a><a href="ressources.html">Ressources</a>
+    <a href="newsletter.html">Newsletters</a><a href="contact.html">Contact</a>
+  </div>
+  <button class="hamburger" onclick="toggleNav()">&#9776;</button>
+</nav>
+<div id="mob-menu">
+  <a href="index.html">Accueil</a><a href="documentation.html">Documentation</a>
+  <a href="glossaire.html">Glossaire</a><a href="qr.html">Q&amp;R</a>
+  <a href="agenda.html">Agenda</a><a href="ressources.html">Ressources</a>
+  <a href="newsletter.html">Newsletters</a><a href="contact.html">Contact</a>
+</div>
+
+<div class="glos-hero">
+  <div class="glos-hero-inner">
+    <div>
+      <h1>&#128214; Glossaire du tableau de bord</h1>
+      <p>Mesures, indicateurs, dimensions et variables. Chacun peut proposer ou corriger un terme - l'administrateur valide.</p>
+    </div>
+    <button class="prop-btn" style="margin:0;" onclick="openContrib('new',null)">&#128221; Proposer un terme</button>
+  </div>
+</div>
+
+<!-- CONTRIB MODAL -->
+<div id="contrib-modal-bg">
+  <div id="contrib-modal">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+      <h3 id="contrib-title" style="font-size:1rem;font-weight:700;color:var(--navy);"></h3>
+      <button onclick="closeContrib()" style="background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--muted);">&#215;</button>
+    </div>
+    <div style="background:var(--teal-bg);border-radius:6px;padding:.6rem .9rem;font-size:.79rem;color:var(--teal);margin-bottom:1rem;">
+      &#128221; Votre proposition sera soumise a validation avant publication.
+    </div>
+    <div class="form-group"><label>Votre pseudo</label><input class="fc" id="contrib-by" type="text" placeholder="ex : agent67" maxlength="40"/></div>
+    <div id="contrib-term-field" class="form-group"><label>Terme *</label><input class="fc" id="contrib-t" type="text" placeholder="Nom du terme ou indicateur"/></div>
+    <div id="contrib-cat-field" class="form-group"><label>Categorie *</label>
+      <select class="fc" id="contrib-c">
+        <option value="mesure">Mesure / Indicateur</option>
+        <option value="dimension">Dimension / Variable</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Definition *</label><textarea class="fc" id="contrib-d" rows="3" placeholder="Definition precise..."></textarea></div>
+    <div class="form-group"><label>Exemple / precision (optionnel)</label><textarea class="fc" id="contrib-e" rows="2" placeholder="Exemple d'usage..."></textarea></div>
+    <p id="contrib-err" style="color:#b91c1c;font-size:.78rem;margin-bottom:.75rem;display:none;"></p>
+    <div style="display:flex;gap:.6rem;">
+      <button class="btn btn-primary" onclick="submitContrib()">Soumettre</button>
+      <button class="btn btn-ghost" onclick="closeContrib()">Annuler</button>
+    </div>
+  </div>
+</div>
+
+<div class="pw">
+  <!-- PENDING - admin only -->
+  <div id="glos-pending-wrap"></div>
+  <!-- ADD btn - admin only -->
+  <div id="glos-add-wrap"></div>
+
+  <!-- SEARCH + FILTERS -->
+  <div class="glos-search-bar">
+    <input class="fc" id="glos-q" type="text" placeholder="&#128269; Rechercher un terme..." oninput="renderGlos()" style="max-width:300px;"/>
+    <span id="glos-count" class="count-chip">0 termes</span>
+    <div style="display:flex;gap:.3rem;flex-wrap:wrap;">
+      <button class="gf-btn on" onclick="setGlosCat('all',this)">Tous</button>
+      <button class="gf-btn" onclick="setGlosCat('mesure',this)">Mesures / Indicateurs</button>
+      <button class="gf-btn" onclick="setGlosCat('dimension',this)">Dimensions / Variables</button>
+    </div>
+  </div>
+  <!-- A-Z bar -->
+  <div class="az-bar" id="az-bar"></div>
+
+  <div id="glos-body"></div>
+  <div id="glos-empty" style="display:none;text-align:center;padding:2.5rem;color:var(--muted);">Aucun terme trouve.</div>
+</div>
+
+<footer>
+  <strong>Club Utilisateurs - Tableau de bord RPE</strong><br/>
+  <div class="footer-links">
+    <a href="mailto:tdbrpe.00613@francetravail.fr">tdbrpe.00613@francetravail.fr</a>
+    <a href="frequentation.html">Frequentation</a>
+    <button onclick="openLoginModal()" style="background:none;border:none;cursor:pointer;color:rgba(255,255,255,.4);font-size:.75rem;font-family:inherit;">&#128274; Admin</button>
+  </div>
+</footer>
+<div id="toast"></div>
+<script src="data.js"></script><script src="nav.js"></script><script src="admin.js"></script><script src="visits.js"></script>
+<script>
+DB.init();VISITS.seed();initAdmin();VISITS.record();
+
+let glosCat='all', glosLetter='all', contribContext={type:'new',termId:null};
+
+function openContrib(type,termId){
+  contribContext={type,termId};
+  const isCorr=type==='correction';
+  document.getElementById('contrib-title').textContent=isCorr?'Suggerer une correction':'Proposer un nouveau terme';
+  document.getElementById('contrib-term-field').style.display=isCorr?'none':'';
+  document.getElementById('contrib-cat-field').style.display=isCorr?'none':'';
+  document.getElementById('contrib-err').style.display='none';
+  if(isCorr&&termId){
+    const term=DB.section('glossaire').find(g=>String(g.id)===String(termId));
+    if(term){document.getElementById('contrib-d').value=term.d;document.getElementById('contrib-e').value=term.e||'';}
+  } else {
+    ['contrib-t','contrib-d','contrib-e'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('contrib-c').value='mesure';
+  }
+  document.getElementById('contrib-by').value='';
+  document.getElementById('contrib-modal-bg').classList.add('open');
+  setTimeout(()=>document.getElementById('contrib-by').focus(),60);
+}
+function closeContrib(){document.getElementById('contrib-modal-bg').classList.remove('open');}
+function submitContrib(){
+  const by=document.getElementById('contrib-by').value.trim();
+  const d=document.getElementById('contrib-d').value.trim();
+  const err=document.getElementById('contrib-err');
+  if(!d){err.textContent='La definition est obligatoire.';err.style.display='block';return;}
+  const prop={type:contribContext.type,by:by||'Anonyme',d,e:document.getElementById('contrib-e').value.trim()};
+  if(contribContext.type==='new'){
+    const t=document.getElementById('contrib-t').value.trim();
+    if(!t){err.textContent='Le terme est obligatoire.';err.style.display='block';return;}
+    prop.t=t;prop.c=document.getElementById('contrib-c').value;
+  } else {
+    prop.termId=contribContext.termId;
+    const term=DB.section('glossaire').find(g=>String(g.id)===String(contribContext.termId));
+    prop.t=term?term.t:'?';prop.c=term?term.c:'mesure';
+  }
+  GLOS_PROP.add(prop);closeContrib();
+  showToast('Merci ! Proposition soumise a validation.');
+  renderPendingProposals();
+}
+function validateProp(id){
+  const p=GLOS_PROP.all().find(x=>x.id===id);if(!p)return;
+  if(p.type==='new')DB.add('glossaire',{t:p.t,c:p.c,d:p.d,e:p.e||'',status:'approved'});
+  else DB.update('glossaire',p.termId,{d:p.d,e:p.e||''});
+  GLOS_PROP.approve(id);renderPendingProposals();renderGlos();
+  showToast('Terme valide et publie !');
+}
+function editProp(id){
+  const p=GLOS_PROP.all().find(x=>x.id===id);if(!p)return;
+  openAdmModal('glossaire',{t:p.t,c:p.c,d:p.d,e:p.e||''},function(data){
+    if(p.type==='new')DB.add('glossaire',Object.assign({status:'approved'},data));
+    else DB.update('glossaire',p.termId,data);
+    GLOS_PROP.approve(id);renderPendingProposals();renderGlos();
+    showToast('Terme modifie et publie !');
+  });
+}
+function rejectProp(id){
+  if(!confirm('Rejeter cette proposition ?'))return;
+  GLOS_PROP.reject(id);renderPendingProposals();showToast('Proposition rejetee.');
+}
+function renderPendingProposals(){
+  const wrap=document.getElementById('glos-pending-wrap');
+  if(!isAdmin()){wrap.innerHTML='';return;}
+  const pending=GLOS_PROP.pending();
+  if(!pending.length){wrap.innerHTML='';return;}
+  wrap.innerHTML='<div class="pending-section"><h4>&#128203; '+pending.length+' proposition(s) en attente</h4>'+
+    pending.map(p=>'<div class="prop-card'+(p.type==='correction'?' correction':'')+'">'+
+      '<div class="prop-type">'+(p.type==='correction'?'Correction proposee':'Nouveau terme propose')+'</div>'+
+      '<div><span class="prop-term-name">'+p.t+'</span> <span class="badge '+(p.c==='mesure'?'badge-teal':'badge-navy')+'">'+p.c+'</span></div>'+
+      '<div class="prop-body">'+p.d+'</div>'+(p.e?'<div class="prop-by" style="font-style:italic;margin-bottom:.2rem;">'+p.e+'</div>':'')+
+      '<div class="prop-by">Par <strong>'+p.by+'</strong> le '+p.date+'</div>'+
+      '<div class="prop-actions">'+
+        '<button class="adm-btn ok" onclick="validateProp('+p.id+')">&#10003; Valider</button>'+
+        '<button class="adm-btn" onclick="editProp('+p.id+')">&#9998; Modifier</button>'+
+        '<button class="adm-btn del" onclick="rejectProp('+p.id+')">&#10005; Rejeter</button>'+
+      '</div></div>').join('')+'</div>';
+}
+
+function setGlosCat(cat,btn){
+  glosCat=cat;
+  document.querySelectorAll('.gf-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');renderGlos();
+}
+function setLetter(l){
+  glosLetter=l;
+  document.querySelectorAll('.az-btn').forEach(b=>b.classList.remove('on'));
+  document.querySelector('.az-btn[data-l="'+l+'"]')?.classList.add('on');
+  renderGlos();
+}
+
+function renderGlos(){
+  document.getElementById('glos-add-wrap').innerHTML=admAdd('glossaire','un terme');
+  const q=(document.getElementById('glos-q').value||'').toLowerCase();
+  const items=DB.section('glossaire').filter(g=>g.status==='approved').filter(g=>{
+    const matchCat=glosCat==='all'||g.c===glosCat;
+    const matchQ=!q||(g.t+g.d+(g.e||'')).toLowerCase().includes(q);
+    const matchL=glosLetter==='all'||g.t.toUpperCase().startsWith(glosLetter);
+    return matchCat&&matchQ&&matchL;
+  });
+  document.getElementById('glos-count').textContent=items.length+' terme'+(items.length>1?'s':'');
+  document.getElementById('glos-empty').style.display=items.length?'none':'block';
+  document.getElementById('glos-body').innerHTML=items.map(g=>`<div class="glos-entry" id="g-${g.id}">
+    <div>
+      <span class="glos-term">${g.t}</span>
+      <span class="badge ${g.c==='mesure'?'badge-teal':'badge-navy'}" style="margin-left:.4rem;font-size:.62rem;">${g.c==='mesure'?'Mesure / Indicateur':'Dimension / Variable'}</span>
+    </div>
+    <div class="glos-def">${g.d}</div>
+    ${g.e?'<div class="glos-ex">'+g.e+'</div>':''}
+    <div class="glos-footer">
+      <button class="glos-propose-link" onclick="openContrib('correction','${g.id}')">&#9998; Suggerer une correction</button>
+      ${admCtrl('glossaire',g.id)}
+    </div>
+  </div>`).join('');
+}
+
+function buildAZBar(){
+  const letters=[...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'];
+  const present=new Set(DB.section('glossaire').filter(g=>g.status==='approved').map(g=>g.t[0].toUpperCase()));
+  const bar=document.getElementById('az-bar');
+  bar.innerHTML='<button class="az-btn on" data-l="all" onclick="setLetter(\'all\')">Tout</button>'+
+    letters.map(l=>'<button class="az-btn'+(present.has(l)?'':' disabled')+'" data-l="'+l+'" onclick="setLetter(\''+l+'\')" '+(present.has(l)?'':'disabled')+'style="opacity:'+(present.has(l)?1:.3)+'">' +l+'</button>').join('');
+}
+
+document.getElementById('contrib-modal-bg').addEventListener('click',function(e){if(e.target===this)closeContrib();});
+
+function _refreshPage(){renderPendingProposals();renderGlos();buildAZBar();}
+_refreshPage();
+if(location.hash){
+  const el=document.getElementById(location.hash.slice(1));
+  if(el)setTimeout(()=>{el.scrollIntoView({block:'center'});el.style.background='#fffbe6';setTimeout(()=>el.style.background='',1500);},300);
+}
+</script>
+</body></html>
