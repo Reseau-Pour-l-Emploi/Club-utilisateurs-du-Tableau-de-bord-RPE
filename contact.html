@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Contact - Club Utilisateurs TDB RPE</title>
+<link rel="icon" type="image/svg+xml" href="logo_rpe.svg"/>
+<link rel="stylesheet" href="style.css"/>
+<style>
+.radio-opt{display:flex;align-items:flex-start;gap:.75rem;background:var(--bg);border:1.5px solid var(--border);border-radius:6px;padding:.7rem 1rem;cursor:pointer;transition:.15s;margin-bottom:.5rem;}
+.radio-opt:has(input:checked){border-color:var(--teal);background:var(--teal-bg);}
+.radio-opt input{margin-top:.2rem;accent-color:var(--teal);}
+.radio-label{font-weight:600;font-size:.87rem;}
+.radio-sub{font-size:.75rem;color:var(--muted);margin-top:.1rem;}
+.contact-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:1.75rem;align-items:start;}
+@media(max-width:720px){.contact-grid{grid-template-columns:1fr;}}
+.info-item{display:flex;gap:.85rem;align-items:flex-start;margin-bottom:1rem;}
+.info-icon{width:38px;height:38px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.info-item h4{font-size:.87rem;font-weight:600;color:var(--navy);margin-bottom:.2rem;}
+.info-item p{font-size:.79rem;color:var(--muted);line-height:1.55;}
+.preview-box{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:.85rem 1rem;font-size:.79rem;color:var(--muted);white-space:pre-wrap;font-family:monospace;display:none;max-height:200px;overflow-y:auto;margin-top:.65rem;}
+</style>
+</head>
+<body>
+<nav id="nav">
+  <a href="index.html" class="brand">
+    <svg width="36" height="36" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M40.8076 11.7766C37.2138 9.70174 32.7861 9.70174 29.1923 11.7766L17.7918 18.3587C14.198 20.4336 11.9841 24.2681 11.9841 28.4179V41.582C11.9841 45.7319 14.198 49.5663 17.7918 51.6413L29.1923 58.2233C32.7861 60.2983 37.2138 60.2983 40.8076 58.2233L52.2082 51.6413C55.802 49.5663 58.0159 45.7319 58.0159 41.582V28.4179C58.0159 24.2681 55.802 20.4336 52.2082 18.3587L40.8076 11.7766ZM39.6193 14.6402C36.7767 12.999 33.2746 12.999 30.432 14.6402L19.665 20.8565C16.8224 22.4977 15.0713 25.5306 15.0713 28.8131V41.2456C15.0713 44.5279 16.8224 47.561 19.665 49.2022L30.432 55.4185C33.2746 57.0596 36.7767 57.0596 39.6193 55.4185L50.3863 49.2022C53.2289 47.561 54.98 44.5279 54.98 41.2456V28.8131C54.98 25.5306 53.2289 22.4977 50.3863 20.8565L39.6193 14.6402Z" fill="rgba(255,255,255,0.9)"/>
+<path d="M37.4874 53.553C35.8802 54.0211 34.1707 54.0211 32.5635 53.553V36.6704C32.5635 35.3107 33.6657 34.2085 35.0254 34.2085C36.3852 34.2085 37.4874 35.3107 37.4874 36.6704V53.553Z" fill="#F29FC5"/>
+<path d="M29.9123 52.3133L25.3672 49.6823V26.2547C25.3672 24.9997 26.3847 23.9822 27.6398 23.9822C28.8948 23.9822 29.9123 24.9997 29.9123 26.2547V52.3133Z" fill="#FFE000"/>
+<path d="M52.2593 42.1451C51.6943 44.4606 50.2102 46.4833 48.0995 47.7051L47.5879 48.0013V30.7366C47.5879 29.4466 48.6337 28.4009 49.9236 28.4009C51.2135 28.4009 52.2593 29.4466 52.2593 30.7366V42.1451Z" fill="rgba(255,255,255,0.85)"/>
+<path d="M22.5894 48.0742L21.9516 47.705C19.8409 46.4833 18.3567 44.4606 17.7917 42.1451V36.6073C17.7917 35.2825 18.8657 34.2085 20.1906 34.2085C21.5154 34.2085 22.5894 35.2825 22.5894 36.6073V48.0742Z" fill="#008ECF"/>
+<path d="M44.9363 49.536L40.1387 52.3132V43.299C40.1387 41.9742 41.2127 40.9001 42.5375 40.9001C43.8623 40.9001 44.9363 41.9742 44.9363 43.299V49.536Z" fill="#E1000F"/>
+</svg>
+    <div><span class="brand-name">Club Utilisateurs</span><span class="brand-sub">Tableau de bord RPE</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Accueil</a><a href="documentation.html">Documentation</a>
+    <a href="glossaire.html">Glossaire</a><a href="qr.html">Q&amp;R</a>
+    <a href="agenda.html">Agenda</a><a href="ressources.html">Ressources</a>
+    <a href="newsletter.html">Newsletters</a><a href="contact.html">Contact</a>
+  </div>
+  <button class="hamburger" onclick="toggleNav()">&#9776;</button>
+</nav>
+<div id="mob-menu">
+  <a href="index.html">Accueil</a><a href="documentation.html">Documentation</a>
+  <a href="glossaire.html">Glossaire</a><a href="qr.html">Q&amp;R</a>
+  <a href="agenda.html">Agenda</a><a href="ressources.html">Ressources</a>
+  <a href="newsletter.html">Newsletters</a><a href="contact.html">Contact</a>
+</div>
+
+<div class="pw">
+  <div class="sec-label">Contact</div>
+  <h1 class="page-title">Nous contacter</h1>
+  <p class="page-sub">Ecrivez a l'equipe, reservez un creneau individuel de 15 minutes ou demandez une intervention pour votre groupe.</p>
+
+  <div class="contact-grid">
+    <div class="card">
+      <h3 style="margin-bottom:1.1rem;">Envoyer un message</h3>
+      <div class="form-group">
+        <label>Type de demande</label>
+        <label class="radio-opt"><input type="radio" name="type" value="message" checked onchange="updateForm()"/>
+          <div><div class="radio-label">&#9993; Message a l'equipe</div><div class="radio-sub">Question, retour, suggestion</div></div>
+        </label>
+        <label class="radio-opt"><input type="radio" name="type" value="rdv15" onchange="updateForm()"/>
+          <div><div class="radio-label">&#128197; Rendez-vous individuel - 15 min</div><div class="radio-sub">Explication personnalisee en visio</div></div>
+        </label>
+        <label class="radio-opt"><input type="radio" name="type" value="groupe" onchange="updateForm()"/>
+          <div><div class="radio-label">&#128101; Intervention en groupe</div><div class="radio-sub">Presentation ou atelier pour votre equipe</div></div>
+        </label>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;">
+        <div class="form-group"><label>Civilite</label>
+          <select class="fc" id="c-civ"><option value="Madame">Madame</option><option value="Monsieur">Monsieur</option></select>
+        </div>
+        <div class="form-group"><label>Nom / Prenom *</label>
+          <input class="fc" id="c-nom" type="text" placeholder="Marie Dupont"/>
+        </div>
+      </div>
+      <div class="form-group"><label>Email professionnel *</label>
+        <input class="fc" id="c-email" type="email" placeholder="m.dupont@structure.fr"/>
+      </div>
+      <div class="form-group"><label>Structure / Organisme</label>
+        <input class="fc" id="c-org" type="text" placeholder="Conseil departemental du..."/>
+      </div>
+      <!-- champs conditionnels -->
+      <div id="field-msg" class="form-group">
+        <label>Message *</label>
+        <textarea class="fc" id="c-message" rows="5" placeholder="Decrivez votre question ou votre demande..." oninput="updatePreview()"></textarea>
+      </div>
+      <div id="field-rdv" class="form-group" style="display:none;">
+        <label>Disponibilites souhaitees</label>
+        <input class="fc" id="c-dispo" type="text" placeholder="ex : mardi ou jeudi apres 10h" oninput="updatePreview()"/>
+        <div style="font-size:.73rem;color:var(--muted);margin-top:.3rem;">Vous recevrez un lien de reservation de creneau sous 48h.</div>
+      </div>
+      <div id="field-groupe" style="display:none;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;">
+          <div class="form-group"><label>Effectif du groupe</label>
+            <input class="fc" id="c-effectif" type="number" placeholder="12" min="2" oninput="updatePreview()"/>
+          </div>
+          <div class="form-group"><label>Date souhaitee</label>
+            <input class="fc" id="c-date" type="date" oninput="updatePreview()"/>
+          </div>
+        </div>
+        <div class="form-group"><label>Objectif de l'intervention *</label>
+          <textarea class="fc" id="c-objectif" rows="4" placeholder="Presentez votre equipe et vos attentes..." oninput="updatePreview()"></textarea>
+        </div>
+      </div>
+      <!-- Preview -->
+      <div style="margin-bottom:.85rem;">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <label style="display:block;font-size:.72rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;">Apercu du message</label>
+          <button class="btn btn-ghost btn-sm" onclick="togglePreview()">&#128065; Apercu</button>
+        </div>
+        <pre class="preview-box" id="msg-preview"></pre>
+      </div>
+      <button class="btn btn-primary" onclick="sendContact()">Ouvrir dans ma messagerie &rarr;</button>
+      <div style="font-size:.73rem;color:var(--muted);margin-top:.5rem;">Le message sera pre-rempli dans votre client email (Outlook, Gmail...) avec le destinataire <strong>tdbrpe.00613@francetravail.fr</strong>.</div>
+    </div>
+
+    <div>
+      <div class="info-item">
+        <div class="info-icon" style="background:#e5eaf4;">&#128231;</div>
+        <div><h4>Email direct</h4>
+          <p>Pour toute question : <strong>tdbrpe.00613@francetravail.fr</strong><br/>Reponse sous 48h ouvrables.</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon" style="background:var(--teal-bg);">&#128197;</div>
+        <div><h4>Rendez-vous individuel (15 min)</h4>
+          <p>Disponible en semaine sur rendez-vous. Apres reception, vous recevrez un lien de reservation de creneau.</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon" style="background:#fdeee6;">&#128101;</div>
+        <div><h4>Intervention en groupe</h4>
+          <p>Presentation, formation sur mesure. Delai minimum 10 jours. Precisez effectif et objectifs.</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon" style="background:#fffbe6;">&#128172;</div>
+        <div><h4>Questions / Reponses</h4>
+          <p>Consultez d'abord l'espace <a href="qr.html" style="color:var(--teal);font-weight:600;">Q&amp;R</a> - votre question est peut-etre deja repondue.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <strong>Club Utilisateurs - Tableau de bord RPE</strong><br/>
+  <div class="footer-links">
+    <a href="mailto:tdbrpe.00613@francetravail.fr">tdbrpe.00613@francetravail.fr</a>
+    <a href="frequentation.html">Frequentation</a>
+    <button onclick="openLoginModal()" style="background:none;border:none;cursor:pointer;color:rgba(255,255,255,.4);font-size:.75rem;font-family:inherit;">&#128274; Admin</button>
+  </div>
+</footer>
+<div id="toast"></div>
+<script src="data.js"></script><script src="nav.js"></script><script src="admin.js"></script><script src="visits.js"></script>
+<script>
+DB.init();VISITS.seed();initAdmin();VISITS.record();
+
+const DEST='tdbrpe.00613@francetravail.fr';
+const typeLabels={message:'Message',rdv15:'RDV individuel 15 min',groupe:'Intervention groupe'};
+
+function updateForm(){
+  var type=document.querySelector('input[name="type"]:checked').value;
+  document.getElementById('field-msg').style.display=type==='message'?'':'none';
+  document.getElementById('field-rdv').style.display=type==='rdv15'?'':'none';
+  document.getElementById('field-groupe').style.display=type==='groupe'?'':'none';
+  updatePreview();
+}
+
+function buildBody(){
+  var type=document.querySelector('input[name="type"]:checked').value;
+  var civ=document.getElementById('c-civ').value;
+  var nom=document.getElementById('c-nom').value.trim()||'[Nom non renseigne]';
+  var email=document.getElementById('c-email').value.trim()||'[Email non renseigne]';
+  var org=document.getElementById('c-org').value.trim();
+
+  var content='';
+  if(type==='message'){
+    var msg=document.getElementById('c-message').value.trim()||'[Message vide]';
+    content='Je vous contacte via le site du Club Utilisateurs du Tableau de bord RPE.\n\n'+msg;
+  } else if(type==='rdv15'){
+    var dispo=document.getElementById('c-dispo').value.trim()||'Non precisees';
+    content='Je souhaite reserver un rendez-vous individuel de 15 minutes.\n\nMes disponibilites :\n'+dispo;
+  } else {
+    var eff=document.getElementById('c-effectif').value||'?';
+    var dat=document.getElementById('c-date').value||'Non precise';
+    var obj=document.getElementById('c-objectif').value.trim()||'[Objectif non precise]';
+    content='Je souhaite organiser une intervention en groupe.\n\nEffectif : '+eff+' personnes\nDate souhaitee : '+dat+'\n\nObjectif de l\'intervention :\n'+obj;
+  }
+  return ''+civ+' '+nom+',\n\n'+content+
+    '\n\n---\nCoordonnees :\nNom : '+nom+
+    '\nEmail : '+email+
+    (org?'\nStructure : '+org:'')+
+    '\n---\n\nCordialement,\n'+nom+(org?'\n'+org:'');
+}
+
+function buildSubject(){
+  var type=document.querySelector('input[name="type"]:checked').value;
+  var nom=document.getElementById('c-nom').value.trim()||'N/A';
+  return '[Club TDB RPE] '+typeLabels[type]+' - '+nom;
+}
+
+var previewOpen=false;
+function togglePreview(){
+  previewOpen=!previewOpen;
+  var box=document.getElementById('msg-preview');
+  box.style.display=previewOpen?'block':'none';
+  if(previewOpen)updatePreview();
+}
+function updatePreview(){
+  if(!previewOpen)return;
+  var box=document.getElementById('msg-preview');
+  box.textContent='A : '+DEST+'\nObjet : '+buildSubject()+'\n\n'+buildBody();
+}
+
+function sendContact(){
+  var nom=document.getElementById('c-nom').value.trim();
+  var email=document.getElementById('c-email').value.trim();
+  if(!nom||!email){showToast('Merci de renseigner votre nom et email.',false);return;}
+  var subject=buildSubject();
+  var body=buildBody();
+  window.location.href='mailto:'+DEST+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+  showToast('Ouverture de votre messagerie...');
+}
+</script>
+</body></html>

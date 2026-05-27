@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<link rel="icon" type="image/svg+xml" href="logo_rpe.svg"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Frequentation - Club Utilisateurs TDB RPE</title>
+<link rel="stylesheet" href="style.css"/>
+<style>
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.85rem;margin-bottom:1.75rem;}
+.sc{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.1rem 1.25rem;text-align:center;box-shadow:var(--sh);}
+.sc .n{font-size:2rem;font-weight:700;color:var(--navy);line-height:1;}
+.sc .l{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-top:.2rem;}
+.sc .s{font-size:.73rem;color:var(--muted);margin-top:.15rem;}
+.section-title{font-size:1rem;font-weight:600;color:var(--navy);margin-bottom:1rem;}
+.chart-wrap{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;box-shadow:var(--sh);margin-bottom:1.5rem;overflow-x:auto;}
+.bar-rows{}
+.bar-row{display:flex;align-items:center;gap:.7rem;margin-bottom:.48rem;}
+.bar-lbl{width:110px;text-align:right;color:var(--muted);font-size:.73rem;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.bar-track{flex:1;background:var(--bg);border-radius:4px;height:20px;overflow:hidden;min-width:80px;}
+.bar-fill{height:100%;border-radius:4px;background:var(--teal);display:flex;align-items:center;padding-left:.45rem;transition:width .6s ease;}
+.bar-fill.accent{background:var(--accent);}
+.bar-fill.navy{background:var(--navy);}
+.bar-val{font-size:.71rem;font-weight:600;color:#fff;white-space:nowrap;}
+.bar-val-out{font-size:.71rem;color:var(--muted);margin-left:.4rem;}
+.loc-badge{display:inline-flex;align-items:center;gap:.4rem;background:var(--teal-bg);border:1px solid #b2dfd8;border-radius:5px;padding:.3rem .65rem;font-size:.78rem;margin:.25rem;}
+.trend{font-size:.72rem;font-weight:600;margin-top:.2rem;}
+.trend.up{color:var(--teal);}
+.trend.dn{color:var(--accent);}
+.info-note{font-size:.78rem;color:var(--muted);background:var(--bg);border-radius:6px;padding:.65rem 1rem;border:1px solid var(--border);margin-bottom:1.25rem;}
+</style>
+</head>
+<body>
+<nav id="nav">
+  <a href="index.html" class="brand"><svg width="36" height="36" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M40.8076 11.7766C37.2138 9.70174 32.7861 9.70174 29.1923 11.7766L17.7918 18.3587C14.198 20.4336 11.9841 24.2681 11.9841 28.4179V41.582C11.9841 45.7319 14.198 49.5663 17.7918 51.6413L29.1923 58.2233C32.7861 60.2983 37.2138 60.2983 40.8076 58.2233L52.2082 51.6413C55.802 49.5663 58.0159 45.7319 58.0159 41.582V28.4179C58.0159 24.2681 55.802 20.4336 52.2082 18.3587L40.8076 11.7766ZM39.6193 14.6402C36.7767 12.999 33.2746 12.999 30.432 14.6402L19.665 20.8565C16.8224 22.4977 15.0713 25.5306 15.0713 28.8131V41.2456C15.0713 44.5279 16.8224 47.561 19.665 49.2022L30.432 55.4185C33.2746 57.0596 36.7767 57.0596 39.6193 55.4185L50.3863 49.2022C53.2289 47.561 54.98 44.5279 54.98 41.2456V28.8131C54.98 25.5306 53.2289 22.4977 50.3863 20.8565L39.6193 14.6402Z" fill="rgba(255,255,255,0.9)"/>
+<path d="M37.4874 53.553C35.8802 54.0211 34.1707 54.0211 32.5635 53.553V36.6704C32.5635 35.3107 33.6657 34.2085 35.0254 34.2085C36.3852 34.2085 37.4874 35.3107 37.4874 36.6704V53.553Z" fill="#F29FC5"/>
+<path d="M29.9123 52.3133L25.3672 49.6823V26.2547C25.3672 24.9997 26.3847 23.9822 27.6398 23.9822C28.8948 23.9822 29.9123 24.9997 29.9123 26.2547V52.3133Z" fill="#FFE000"/>
+<path d="M52.2593 42.1451C51.6943 44.4606 50.2102 46.4833 48.0995 47.7051L47.5879 48.0013V30.7366C47.5879 29.4466 48.6337 28.4009 49.9236 28.4009C51.2135 28.4009 52.2593 29.4466 52.2593 30.7366V42.1451Z" fill="rgba(255,255,255,0.85)"/>
+<path d="M22.5894 48.0742L21.9516 47.705C19.8409 46.4833 18.3567 44.4606 17.7917 42.1451V36.6073C17.7917 35.2825 18.8657 34.2085 20.1906 34.2085C21.5154 34.2085 22.5894 35.2825 22.5894 36.6073V48.0742Z" fill="#008ECF"/>
+<path d="M44.9363 49.536L40.1387 52.3132V43.299C40.1387 41.9742 41.2127 40.9001 42.5375 40.9001C43.8623 40.9001 44.9363 41.9742 44.9363 43.299V49.536Z" fill="#E1000F"/>
+</svg><div><span class="brand-name">Club Utilisateurs</span><span class="brand-sub">Tableau de bord RPE</span></div></a>
+  <div class="nav-links">
+    <a href="index.html">Accueil</a><a href="documentation.html">Documentation</a>
+    <a href="glossaire.html">Glossaire</a><a href="qr.html">Q&amp;R</a><a href="agenda.html">Agenda</a>
+    <a href="ressources.html">Ressources</a><a href="newsletter.html">Newsletters</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <button class="hamburger" onclick="toggleNav()">&#9776;</button>
+</nav>
+<div id="mob-menu">
+  <a href="index.html">Accueil</a><a href="documentation.html">Documentation</a>
+  <a href="glossaire.html">Glossaire</a>
+  <a href="qr.html">Q&amp;R</a><a href="agenda.html">Agenda</a>
+  <a href="ressources.html">Ressources</a><a href="newsletter.html">Newsletters</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<div class="pw">
+  <a href="index.html" style="font-size:.8rem;color:var(--muted);display:inline-flex;align-items:center;gap:.35rem;margin-bottom:1rem;">&larr; Retour accueil</a>
+  <div class="sec-label">Statistiques</div>
+  <h1 class="page-title">Frequentation du site</h1>
+  <p class="page-sub">Visites enregistrees depuis ce navigateur. La localisation est estimee d'apres l'adresse IP.</p>
+
+  <div class="info-note">
+    &#128161; Les statistiques sont collectees localement dans ce navigateur. Chaque utilisateur contribue a ses propres compteurs. La localisation est determinee via l'API ipapi.co et stockee de facon anonyme.
+  </div>
+
+  <!-- KPIs -->
+  <div class="stats-grid" id="kpi-wrap"></div>
+
+  <!-- Visites par mois (12 mois) -->
+  <div class="section-title">Visites par mois - 12 derniers mois</div>
+  <div class="chart-wrap"><div id="chart-month"></div></div>
+
+  <!-- Visites par semaine (12 semaines) -->
+  <div class="section-title">Visites par semaine - 12 dernieres semaines</div>
+  <div class="chart-wrap"><div id="chart-week"></div></div>
+
+  <!-- 2 colonnes : localisation + pages -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.35rem;align-items:start;">
+    <div>
+      <div class="section-title">Par localisation (Top 10)</div>
+      <div class="chart-wrap" style="margin-bottom:0;"><div id="chart-city"></div></div>
+    </div>
+    <div>
+      <div class="section-title">Par page</div>
+      <div class="chart-wrap" style="margin-bottom:0;"><div id="chart-page"></div></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <strong>Club Utilisateurs - Tableau de bord RPE</strong><br/>
+  <div class="footer-links">
+    <a href="mailto:tdbrpe.00613@francetravail.fr">tdbrpe.00613@francetravail.fr</a>
+    <a href="frequentation.html">Frequentation du site</a>
+    <button onclick="openLoginModal()" style="background:none;border:none;cursor:pointer;color:rgba(255,255,255,.4);font-size:.75rem;font-family:inherit;">&#128274; Admin</button>
+  </div>
+</footer>
+<div id="toast"></div>
+<script src="data.js"></script><script src="nav.js"></script><script src="admin.js"></script><script src="visits.js"></script>
+<script>
+DB.init();VISITS.seed();initAdmin();
+
+function bars(data,maxVal,colorClass){
+  return data.map(([lbl,val])=>{
+    const pct=maxVal?Math.max(4,Math.round(val/maxVal*100)):0;
+    return`<div class="bar-row">
+      <div class="bar-lbl" title="${lbl}">${lbl}</div>
+      <div class="bar-track"><div class="bar-fill ${colorClass||''}" style="width:${pct}%"><span class="bar-val">${val>3?val:''}</span></div></div>
+      ${val<=3?`<span class="bar-val-out">${val}</span>`:''}
+    </div>`;
+  }).join('');
+}
+
+function render(){
+  const td=VISITS.todayCount(),wk=VISITS.weekCount(),mo=VISITS.monthCount(),yr=VISITS.yearCount();
+  document.getElementById('kpi-wrap').innerHTML=`
+    <div class="sc"><div class="n">${td}</div><div class="l">Aujourd'hui</div></div>
+    <div class="sc"><div class="n">${wk}</div><div class="l">7 derniers jours</div></div>
+    <div class="sc"><div class="n">${mo}</div><div class="l">Ce mois</div></div>
+    <div class="sc"><div class="n">${yr}</div><div class="l">Cette annee</div></div>`;
+
+  /* par mois */
+  const months=VISITS.byMonth(12);
+  const mEntries=Object.values(months);
+  const mMax=Math.max(...mEntries.map(m=>m.count),1);
+  document.getElementById('chart-month').innerHTML=bars(
+    mEntries.map(m=>[m.lbl,m.count]),mMax,'');
+
+  /* par semaine */
+  const weeks=VISITS.byWeek(12);
+  const wEntries=Object.entries(weeks);
+  const wMax=Math.max(...wEntries.map(([,v])=>v),1);
+  document.getElementById('chart-week').innerHTML=bars(wEntries,wMax,'navy');
+
+  /* par ville */
+  const cities=VISITS.byCity(10);
+  const cMax=Math.max(...cities.map(([,v])=>v),1);
+  const locDiv=document.getElementById('chart-city');
+  locDiv.innerHTML=cities.length?bars(cities,cMax,'accent'):'<p style="color:var(--muted);font-size:.83rem;">Localisation non disponible.</p>';
+
+  /* par page */
+  const pages=VISITS.byPage();
+  const pMax=Math.max(...pages.map(([,v])=>v),1);
+  const pageNames={'index.html':'Accueil','documentation.html':'Documentation','agenda.html':'Agenda','qr.html':'Q&R','ressources.html':'Ressources','newsletter.html':'Newsletters','contact.html':'Contact','frequentation.html':'Frequentation'};
+  document.getElementById('chart-page').innerHTML=bars(
+    pages.map(([k,v])=>[pageNames[k]||k,v]),pMax,'');
+}
+
+render();
+VISITS.record();
+</script>
+</body></html>

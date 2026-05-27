@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<link rel="icon" type="image/svg+xml" href="logo_rpe.svg"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Agenda  -  Club Utilisateurs TDB RPE</title>
+<link rel="stylesheet" href="style.css"/>
+<style>
+.evt-row{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.1rem 1.25rem;margin-bottom:.85rem;box-shadow:var(--sh);display:flex;gap:1.1rem;align-items:flex-start;}
+.evt-date-blk{flex-shrink:0;background:var(--navy);color:#fff;border-radius:6px;text-align:center;padding:.5rem .7rem;min-width:54px;}
+.evt-date-blk.past{background:var(--muted);}
+.evt-date-blk .d{font-weight:700;font-size:1.25rem;line-height:1;}
+.evt-date-blk .m{font-size:.6rem;text-transform:uppercase;letter-spacing:.06em;opacity:.6;}
+.evt-body{flex:1;}
+.evt-body h3{margin-bottom:.2rem;}
+.evt-meta{display:flex;flex-wrap:wrap;gap:.35rem .85rem;font-size:.78rem;color:var(--muted);margin:.3rem 0 .65rem;}
+.evt-btns{display:flex;gap:.5rem;flex-wrap:wrap;}
+.replay-badge{display:inline-flex;align-items:center;gap:.3rem;font-size:.72rem;font-weight:600;padding:.2rem .65rem;border-radius:4px;background:var(--navy);color:#fff;}
+.tab-filter{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1.2rem;}
+</style>
+</head>
+<body>
+<nav id="nav">
+  <a href="index.html" class="brand"><svg width="36" height="36" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M40.8076 11.7766C37.2138 9.70174 32.7861 9.70174 29.1923 11.7766L17.7918 18.3587C14.198 20.4336 11.9841 24.2681 11.9841 28.4179V41.582C11.9841 45.7319 14.198 49.5663 17.7918 51.6413L29.1923 58.2233C32.7861 60.2983 37.2138 60.2983 40.8076 58.2233L52.2082 51.6413C55.802 49.5663 58.0159 45.7319 58.0159 41.582V28.4179C58.0159 24.2681 55.802 20.4336 52.2082 18.3587L40.8076 11.7766ZM39.6193 14.6402C36.7767 12.999 33.2746 12.999 30.432 14.6402L19.665 20.8565C16.8224 22.4977 15.0713 25.5306 15.0713 28.8131V41.2456C15.0713 44.5279 16.8224 47.561 19.665 49.2022L30.432 55.4185C33.2746 57.0596 36.7767 57.0596 39.6193 55.4185L50.3863 49.2022C53.2289 47.561 54.98 44.5279 54.98 41.2456V28.8131C54.98 25.5306 53.2289 22.4977 50.3863 20.8565L39.6193 14.6402Z" fill="rgba(255,255,255,0.9)"/>
+<path d="M37.4874 53.553C35.8802 54.0211 34.1707 54.0211 32.5635 53.553V36.6704C32.5635 35.3107 33.6657 34.2085 35.0254 34.2085C36.3852 34.2085 37.4874 35.3107 37.4874 36.6704V53.553Z" fill="#F29FC5"/>
+<path d="M29.9123 52.3133L25.3672 49.6823V26.2547C25.3672 24.9997 26.3847 23.9822 27.6398 23.9822C28.8948 23.9822 29.9123 24.9997 29.9123 26.2547V52.3133Z" fill="#FFE000"/>
+<path d="M52.2593 42.1451C51.6943 44.4606 50.2102 46.4833 48.0995 47.7051L47.5879 48.0013V30.7366C47.5879 29.4466 48.6337 28.4009 49.9236 28.4009C51.2135 28.4009 52.2593 29.4466 52.2593 30.7366V42.1451Z" fill="rgba(255,255,255,0.85)"/>
+<path d="M22.5894 48.0742L21.9516 47.705C19.8409 46.4833 18.3567 44.4606 17.7917 42.1451V36.6073C17.7917 35.2825 18.8657 34.2085 20.1906 34.2085C21.5154 34.2085 22.5894 35.2825 22.5894 36.6073V48.0742Z" fill="#008ECF"/>
+<path d="M44.9363 49.536L40.1387 52.3132V43.299C40.1387 41.9742 41.2127 40.9001 42.5375 40.9001C43.8623 40.9001 44.9363 41.9742 44.9363 43.299V49.536Z" fill="#E1000F"/>
+</svg><div><span class="brand-name">Club Utilisateurs</span><span class="brand-sub">Tableau de bord RPE</span></div></a>
+  <div class="nav-links">
+    <a href="index.html">Accueil</a><a href="documentation.html">Documentation</a>
+    <a href="glossaire.html">Glossaire</a><a href="qr.html">Q&amp;R</a><a href="agenda.html">Agenda</a>
+    <a href="ressources.html">Ressources</a><a href="newsletter.html">Newsletters</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <button class="hamburger" onclick="toggleNav()">&#9776;</button>
+</nav>
+<div id="mob-menu">
+  <a href="index.html">Accueil</a><a href="documentation.html">Documentation</a>
+  <a href="glossaire.html">Glossaire</a>
+  <a href="qr.html">Q&amp;R</a><a href="agenda.html">Agenda</a>
+  <a href="ressources.html">Ressources</a><a href="newsletter.html">Newsletters</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<div class="pw">
+  <div class="sec-label">Événements</div>
+  <h1 class="page-title">Agenda</h1>
+  <p class="page-sub">Webinaires d'embarquement, pr&eacute;sentations des &eacute;volutions, ateliers de recueil de besoins. Les &eacute;v&eacute;nements archiv&eacute;s restent accessibles avec leurs replays et supports.</p>
+
+  <div class="tabs" id="main-tabs">
+    <button class="tab active" onclick="switchTab('avenir',this)">&#128197; &Agrave; venir</button>
+    <button class="tab" onclick="switchTab('archives',this)">&#128193; Archives &amp; Replays</button>
+  </div>
+
+  <div id="avenir" class="tab-panel active">
+    <div class="tab-filter">
+      <button class="gf-btn on" onclick="setEvtFilter('all',this)">Tous</button>
+      <button class="gf-btn" onclick="setEvtFilter('embarquement',this)">&#127891; Embarquement</button>
+      <button class="gf-btn" onclick="setEvtFilter('evolution',this)">&#128301; &Eacute;volutions</button>
+      <button class="gf-btn" onclick="setEvtFilter('atelier',this)">&#128296; Ateliers</button>
+    </div>
+    <div id="avenir-add"></div>
+    <div id="avenir-body"></div>
+  </div>
+
+  <div id="archives" class="tab-panel">
+    <div class="alert-card alert-info" style="margin-bottom:1.25rem;">Les replays sont accessibles d&egrave;s la fin de l'&eacute;v&eacute;nement. Les supports sont t&eacute;l&eacute;chargeables ci-dessous.</div>
+    <div id="archives-add"></div>
+    <div id="archives-body"></div>
+  </div>
+</div>
+
+<footer><strong>Club Utilisateurs  -  Tableau de bord RPE</strong><br/>
+<a href="mailto:tdbrpe.00613@francetravail.fr">tdbrpe.00613@francetravail.fr</a>
+    <a href="frequentation.html">Frtdbrpe.00613@francetravail.fr</a>eacute;quentation du site</a> &nbsp;&middot;&nbsp;
+<button onclick="openLoginModal()" style="background:none;border:none;cursor:pointer;color:rgba(255,255,255,.4);font-size:.75rem;font-family:inherit;">&#128274;</button>
+</footer>
+<div id="toast"></div>
+<script src="data.js"></script><script src="visits.js"></script><script src="nav.js"></script><script src="admin.js"></script>
+<script>
+DB.init();VISITS.seed();initAdmin();VISITS.record();
+
+let evtFilter='all';
+const typeIcons={embarquement:'🎓',evolution:'🔭',atelier:'🛠️'};
+const typeBadge={embarquement:'badge-navy',evolution:'badge-teal',atelier:'badge-orange'};
+const typeLabel={embarquement:'Embarquement',evolution:'Évolutions',atelier:'Atelier'};
+
+function switchTab(id,btn){
+  document.querySelectorAll('#main-tabs .tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(id).classList.add('active');
+}
+
+function setEvtFilter(f,btn){
+  evtFilter=f;
+  document.querySelectorAll('.tab-filter .gf-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  renderAvenir();
+}
+
+function fmtDate(s){
+  if(!s)return{d:'?',m:'',full:''};
+  const d=new Date(s+'T00:00:00');
+  return{
+    d:d.getDate().toString().padStart(2,'0'),
+    m:d.toLocaleDateString('fr-FR',{month:'short',year:'2-digit'}),
+    full:d.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'})
+  };
+}
+
+function renderEvtRow(ev,isArchive){
+  const dd=fmtDate(ev.fullDate);
+  const blkCls=isArchive?'evt-date-blk past':'evt-date-blk';
+  return`<div class="evt-row" data-type="${ev.type}" id="ev-${ev.id}">
+    <div class="${blkCls}"><div class="d">${dd.d}</div><div class="m">${dd.m}</div></div>
+    <div class="evt-body">
+      <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.2rem;">
+        <h3>${typeIcons[ev.type]||'📅'} ${ev.title}</h3>
+        <span class="badge ${typeBadge[ev.type]||'badge-navy'}">${typeLabel[ev.type]||ev.type}</span>
+        ${isArchive&&ev.replayUrl?'<span class="replay-badge">&#9654; Replay disponible</span>':''}
+      </div>
+      <div class="evt-meta">
+        ${isArchive?`<span>&#128197; ${dd.full}</span>`:ev.time?`<span>&#128197; ${dd.full} &middot; ${ev.time}</span>`:''}
+        ${ev.duration?`<span>&#9200; ${ev.duration}</span>`:''}
+        ${ev.platform?`<span>&#128187; ${ev.platform}</span>`:''}
+        ${ev.capacity?`<span>&#128101; ${ev.capacity}</span>`:''}
+      </div>
+      ${ev.desc?`<p style="font-size:.85rem;color:var(--muted);margin-bottom:.65rem;">${ev.desc}</p>`:''}
+      <div class="evt-btns">
+        ${!isArchive?`<a href="contact.html" class="btn btn-primary btn-sm">S'inscrire</a>`:''}
+        ${isArchive&&ev.replayUrl&&ev.replayUrl!=='#'?`<a href="${ev.replayUrl}" class="btn btn-teal btn-sm" target="_blank">&#9654; Voir le replay</a>`:''}
+        ${isArchive&&ev.replayUrl==='#'?`<a href="#" class="btn btn-teal btn-sm">&#9654; Voir le replay</a>`:''}
+        ${ev.supportUrl&&ev.supportUrl!=='#'?`<a href="${ev.supportUrl}" class="btn btn-ghost btn-sm" target="_blank">&#128229; Support (PPTX)</a>`:''}
+        ${ev.supportUrl==='#'?`<a href="#" class="btn btn-ghost btn-sm">&#128229; Support (PPTX)</a>`:''}
+        ${ev.crUrl&&ev.crUrl!=='#'?`<a href="${ev.crUrl}" class="btn btn-ghost btn-sm" target="_blank">&#128196; Compte rendu</a>`:''}
+        ${ev.crUrl==='#'?`<a href="#" class="btn btn-ghost btn-sm">&#128196; Compte rendu</a>`:''}
+      </div>
+      ${admCtrl('evenements',ev.id)}
+    </div></div>`;
+}
+
+function renderAvenir(){
+  const items=DB.section('evenements').filter(e=>!e.archived&&(evtFilter==='all'||e.type===evtFilter));
+  document.getElementById('avenir-body').innerHTML=items.length?
+    items.map(e=>renderEvtRow(e,false)).join('')
+    :'<p style="color:var(--muted);text-align:center;padding:2rem;">Aucun événement à venir.</p>';
+}
+
+function renderArchives(){
+  const items=DB.section('evenements').filter(e=>e.archived);
+  document.getElementById('archives-body').innerHTML=items.length?
+    items.map(e=>renderEvtRow(e,true)).join('')
+    :'<p style="color:var(--muted);text-align:center;padding:2rem;">Aucune archive disponible.</p>';
+}
+
+function _refreshPage(){
+  document.getElementById('avenir-add').innerHTML=admAdd('evenements','un événement');
+  document.getElementById('archives-add').innerHTML=isAdmin()?admAdd('evenements','un événement archivé'):'';
+  renderAvenir();
+  renderArchives();
+}
+_refreshPage();
+</script>
+</body></html>

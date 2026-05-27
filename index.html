@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Accueil - Club Utilisateurs TDB RPE</title>
+<link rel="icon" type="image/svg+xml" href="logo_rpe.svg"/>
+<link rel="stylesheet" href="style.css"/>
+<style>
+.hero{background:var(--navy);padding:1.25rem 1.5rem 1rem;}
+.hero-inner{max-width:1060px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1.25rem;flex-wrap:wrap;}
+.hero h1{font-size:1.25rem;font-weight:700;color:#fff;line-height:1.3;margin-bottom:.2rem;}
+.hero p{font-size:.82rem;color:rgba(255,255,255,.58);max-width:460px;}
+.hero-pill{display:inline-flex;align-items:center;gap:.38rem;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.8);font-size:.7rem;padding:.16rem .65rem;border-radius:99px;margin-bottom:.5rem;}
+.hdot{width:6px;height:6px;border-radius:50%;background:#4ade80;display:inline-block;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.stats-bar{display:flex;flex-wrap:wrap;gap:.9rem 1.75rem;margin-top:1rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,.1);}
+.stat .num{font-size:1.35rem;font-weight:700;color:#fff;line-height:1;}
+.stat .lbl{font-size:.63rem;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.07em;margin-top:.08rem;}
+.stat.today{border-left:2px solid #4ade80;padding-left:.65rem;}
+#alert-strip{background:#fff7ed;border-bottom:2px solid #f59e0b;padding:.52rem 1.25rem;font-size:.82rem;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;}
+.home-grid{display:grid;grid-template-columns:1fr 310px;gap:1.35rem;align-items:start;}
+@media(max-width:820px){.home-grid{grid-template-columns:1fr;}}
+.actu-item{display:flex;gap:.85rem;align-items:flex-start;padding:.75rem 0;border-bottom:1px solid var(--border);}
+.actu-item:last-of-type{border-bottom:none;}
+.adot{width:8px;height:8px;border-radius:50%;margin-top:.4rem;flex-shrink:0;}
+.actu-item h4{font-size:.88rem;font-weight:600;color:var(--navy);margin-bottom:.1rem;}
+.actu-item p{font-size:.79rem;color:var(--muted);}
+.actu-date{font-size:.68rem;color:var(--muted);margin-top:.15rem;}
+.evt-mini{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:.75rem .9rem;margin-bottom:.55rem;display:flex;gap:.65rem;box-shadow:var(--sh);}
+.edb{flex-shrink:0;text-align:center;background:var(--bg);border:1px solid var(--border);border-radius:5px;padding:.28rem .48rem;min-width:38px;}
+.edb .d{font-weight:700;font-size:.9rem;line-height:1;color:var(--navy);}
+.edb .m{font-size:.56rem;text-transform:uppercase;color:var(--muted);}
+.evt-mini h4{font-size:.79rem;font-weight:600;color:var(--navy);}
+.evt-mini p{font-size:.72rem;color:var(--muted);margin-top:.06rem;}
+/* hero buttons */
+.hero-btns{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;}
+</style>
+</head>
+<body>
+<div id="alert-strip-wrap"></div>
+<nav id="nav">
+  <a href="index.html" class="brand">
+    <svg width="36" height="36" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M40.8076 11.7766C37.2138 9.70174 32.7861 9.70174 29.1923 11.7766L17.7918 18.3587C14.198 20.4336 11.9841 24.2681 11.9841 28.4179V41.582C11.9841 45.7319 14.198 49.5663 17.7918 51.6413L29.1923 58.2233C32.7861 60.2983 37.2138 60.2983 40.8076 58.2233L52.2082 51.6413C55.802 49.5663 58.0159 45.7319 58.0159 41.582V28.4179C58.0159 24.2681 55.802 20.4336 52.2082 18.3587L40.8076 11.7766ZM39.6193 14.6402C36.7767 12.999 33.2746 12.999 30.432 14.6402L19.665 20.8565C16.8224 22.4977 15.0713 25.5306 15.0713 28.8131V41.2456C15.0713 44.5279 16.8224 47.561 19.665 49.2022L30.432 55.4185C33.2746 57.0596 36.7767 57.0596 39.6193 55.4185L50.3863 49.2022C53.2289 47.561 54.98 44.5279 54.98 41.2456V28.8131C54.98 25.5306 53.2289 22.4977 50.3863 20.8565L39.6193 14.6402Z" fill="rgba(255,255,255,0.9)"/>
+<path d="M37.4874 53.553C35.8802 54.0211 34.1707 54.0211 32.5635 53.553V36.6704C32.5635 35.3107 33.6657 34.2085 35.0254 34.2085C36.3852 34.2085 37.4874 35.3107 37.4874 36.6704V53.553Z" fill="#F29FC5"/>
+<path d="M29.9123 52.3133L25.3672 49.6823V26.2547C25.3672 24.9997 26.3847 23.9822 27.6398 23.9822C28.8948 23.9822 29.9123 24.9997 29.9123 26.2547V52.3133Z" fill="#FFE000"/>
+<path d="M52.2593 42.1451C51.6943 44.4606 50.2102 46.4833 48.0995 47.7051L47.5879 48.0013V30.7366C47.5879 29.4466 48.6337 28.4009 49.9236 28.4009C51.2135 28.4009 52.2593 29.4466 52.2593 30.7366V42.1451Z" fill="rgba(255,255,255,0.85)"/>
+<path d="M22.5894 48.0742L21.9516 47.705C19.8409 46.4833 18.3567 44.4606 17.7917 42.1451V36.6073C17.7917 35.2825 18.8657 34.2085 20.1906 34.2085C21.5154 34.2085 22.5894 35.2825 22.5894 36.6073V48.0742Z" fill="#008ECF"/>
+<path d="M44.9363 49.536L40.1387 52.3132V43.299C40.1387 41.9742 41.2127 40.9001 42.5375 40.9001C43.8623 40.9001 44.9363 41.9742 44.9363 43.299V49.536Z" fill="#E1000F"/>
+</svg>
+    <div><span class="brand-name">Club Utilisateurs</span><span class="brand-sub">Tableau de bord RPE</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Accueil</a><a href="documentation.html">Documentation</a>
+    <a href="glossaire.html">Glossaire</a><a href="qr.html">Q&amp;R</a>
+    <a href="agenda.html">Agenda</a><a href="ressources.html">Ressources</a>
+    <a href="newsletter.html">Newsletters</a><a href="contact.html">Contact</a>
+  </div>
+  <button class="hamburger" onclick="toggleNav()">&#9776;</button>
+</nav>
+<div id="mob-menu">
+  <a href="index.html">Accueil</a><a href="documentation.html">Documentation</a>
+  <a href="glossaire.html">Glossaire</a><a href="qr.html">Q&amp;R</a>
+  <a href="agenda.html">Agenda</a><a href="ressources.html">Ressources</a>
+  <a href="newsletter.html">Newsletters</a><a href="contact.html">Contact</a>
+</div>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div style="flex:1;min-width:0;">
+      <div class="hero-pill"><span class="hdot"></span>Plateforme active - Version 3.2</div>
+      <h1>Tableau de bord - R&eacute;seau Pour l'Emploi</h1>
+      <p>Espace collaboratif du club utilisateurs : documentation, livraisons, &eacute;changes et accompagnement.</p>
+      <div class="stats-bar" id="hero-stats"></div>
+    </div>
+    <div class="hero-btns">
+      <a href="glossaire.html" class="btn btn-accent btn-sm">Glossaire</a>
+      <a href="contact.html" class="btn btn-ghost btn-sm" style="color:#fff;border-color:rgba(255,255,255,.3);">Prendre RDV</a>
+    </div>
+  </div>
+</div>
+
+<div class="pw">
+  <!-- SEARCH ENGINE -->
+  <div style="margin-bottom:1.75rem;">
+    <div class="search-wrap">
+      <div class="search-input-wrap">
+        <input type="text" id="site-search" placeholder="&#128269; Rechercher dans le glossaire, les livraisons, les Q&amp;R, les ressources..." autocomplete="off" oninput="onSearch(this.value)" onkeydown="if(event.key==='Escape')closeSearch()"/>
+        <button class="search-btn" onclick="onSearch(document.getElementById('site-search').value)">&#128269;</button>
+      </div>
+      <div id="search-results"></div>
+    </div>
+  </div>
+
+  <div class="home-grid">
+    <div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.85rem;flex-wrap:wrap;gap:.5rem;">
+        <div class="page-title" style="font-size:1.05rem;">Actualit&eacute;s</div>
+        <a href="documentation.html" class="btn btn-ghost btn-sm">Livraisons &rarr;</a>
+      </div>
+      <div class="card" style="padding:.05rem 1.1rem;" id="actualites-wrap"></div>
+      <div style="margin-top:1.5rem;">
+        <div class="page-title" style="font-size:1.05rem;margin-bottom:.75rem;">Interruptions de service</div>
+        <div id="alertes-wrap"></div>
+      </div>
+    </div>
+    <div>
+      <div class="page-title" style="font-size:1.05rem;margin-bottom:.75rem;">Prochains &eacute;v&eacute;nements</div>
+      <div id="evts-wrap"></div>
+      <div style="text-align:right;margin-top:.35rem;"><a href="agenda.html" class="btn btn-ghost btn-sm">Voir l'agenda &rarr;</a></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <strong>Club Utilisateurs - Tableau de bord RPE</strong><br/>
+  <div class="footer-links">
+    <a href="mailto:tdbrpe.00613@francetravail.fr">tdbrpe.00613@francetravail.fr</a>
+    <a href="frequentation.html">Fr&eacute;quentation du site</a>
+    <button onclick="openLoginModal()" style="background:none;border:none;cursor:pointer;color:rgba(255,255,255,.4);font-size:.75rem;font-family:inherit;">&#128274; Admin</button>
+  </div>
+</footer>
+<div id="toast"></div>
+<script src="data.js"></script><script src="nav.js"></script><script src="admin.js"></script><script src="visits.js"></script>
+<script>
+DB.init();VISITS.seed();initAdmin();
+const dotColors={'badge-teal':'var(--teal)','badge-navy':'var(--navy)','badge-amber':'#b45309','badge-orange':'var(--accent)'};
+const typeIcons={embarquement:'&#127891;',evolution:'&#128301;',atelier:'&#128296;'};
+function fmtLong(s){if(!s)return'';const d=new Date(s+'T00:00:00');return d.toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'});}
+function fmtEv(s){if(!s)return{d:'?',m:''};const d=new Date(s+'T00:00:00');return{d:d.getDate().toString().padStart(2,'0'),m:d.toLocaleDateString('fr-FR',{month:'short'})};}
+
+/* ── SEARCH ─────────────────────────────────── */
+var secIcons={glossaire:'\uD83D\uDCD6',livraisons:'\uD83D\uDCCB',qr:'\uD83D\uDCAC',ressources:'\uD83D\uDD17',actualites:'\uD83D\uDCF0',guides:'\uD83D\uDCD8'};
+var secLabels={glossaire:'Glossaire',livraisons:'Livraisons',qr:'Q&amp;R',ressources:'Ressources',actualites:'Actualites',guides:'Guides'};
+
+function safeSection(name){
+  try{return DB.section(name)||[];}catch(e){return[];}
+}
+
+function searchAll(q){
+  var ql=q.toLowerCase();
+  var res={};
+  function hit(sec,item){if(!res[sec])res[sec]=[];if(res[sec].length<4)res[sec].push(item);}
+
+  /* glossaire - status may be missing on old data, include all */
+  safeSection('glossaire').forEach(function(g){
+    if(!g||!g.t)return;
+    var hay=(g.t||'')+(g.d||'')+(g.e||'');
+    if(hay.toLowerCase().indexOf(ql)>=0)
+      hit('glossaire',{label:g.t,sub:(g.d||'').slice(0,72)+'...',url:'glossaire.html#g-'+g.id});
+  });
+  /* livraisons */
+  safeSection('livraisons').forEach(function(l){
+    if(((l.title||'')+(l.desc||'')).toLowerCase().indexOf(ql)>=0)
+      hit('livraisons',{label:l.title,sub:(l.day||'')+' '+(l.mon||''),url:'documentation.html'});
+  });
+  /* guides */
+  safeSection('guides').forEach(function(g){
+    if(((g.title||'')+(g.desc||'')).toLowerCase().indexOf(ql)>=0)
+      hit('guides',{label:g.title,sub:g.desc||'',url:'documentation.html'});
+  });
+  /* Q&R - stored separately */
+  try{
+    var qa=JSON.parse(localStorage.getItem('rpe_qa_v2')||'[]');
+    qa.forEach(function(item){
+      if(((item.q||'')+(item.a||'')).toLowerCase().indexOf(ql)>=0){
+        var lbl=item.q.length>65?item.q.slice(0,65)+'...':item.q;
+        hit('qr',{label:lbl,sub:item.s==='answered'?'Repondue':'En attente',url:'qr.html'});
+      }
+    });
+  }catch(e){}
+  /* ressources */
+  safeSection('ressources').forEach(function(r){
+    if(((r.name||'')+(r.desc||'')+(r.cat||'')).toLowerCase().indexOf(ql)>=0)
+      hit('ressources',{label:r.name,sub:r.cat||'',url:'ressources.html'});
+  });
+  /* actualites */
+  safeSection('actualites').forEach(function(a){
+    if(((a.title||'')+(a.desc||'')).toLowerCase().indexOf(ql)>=0)
+      hit('actualites',{label:a.title,sub:fmtLong(a.date),url:a.link||'index.html'});
+  });
+  return res;
+}
+
+var searchTimer=null;
+function onSearch(val){
+  clearTimeout(searchTimer);
+  var box=document.getElementById('search-results');
+  if(!val||val.length<2){box.classList.remove('open');box.innerHTML='';return;}
+  searchTimer=setTimeout(function(){
+    var res;
+    try{res=searchAll(val);}catch(e){console.error('search error',e);res={};}
+    var secs=Object.keys(res);
+    if(!secs.length){
+      box.innerHTML='<div class="sr-empty">Aucun resultat pour &laquo;&nbsp;'+val+'&nbsp;&raquo;.</div>';
+      box.classList.add('open');return;
+    }
+    var html='';
+    secs.forEach(function(sec){
+      html+='<div class="sr-section">';
+      html+='<div class="sr-section-title">'+secIcons[sec]+'&nbsp;'+secLabels[sec]+'<span class="sr-count">'+res[sec].length+'</span></div>';
+      res[sec].forEach(function(it){
+        html+='<a class="sr-item" href="'+it.url+'">';
+        html+='<span class="sr-icon">'+secIcons[sec]+'</span>';
+        html+='<div><div class="sr-item-title">'+it.label+'</div><div class="sr-item-sub">'+it.sub+'</div></div>';
+        html+='</a>';
+      });
+      html+='</div>';
+    });
+    box.innerHTML=html;
+    box.classList.add('open');
+  },220);
+}
+function closeSearch(){
+  var box=document.getElementById('search-results');
+  if(box){box.classList.remove('open');box.innerHTML='';}
+  var inp=document.getElementById('site-search');
+  if(inp)inp.value='';
+}
+document.addEventListener('click',function(e){
+  if(!e.target.closest('.search-wrap'))closeSearch();
+});
+
+/* ── PAGE RENDER ────────────────────────────── */
+function _refreshPage(){
+  const warns=DB.section('alertes').filter(a=>a.type==='warn');
+  const sw=document.getElementById('alert-strip-wrap');
+  sw.innerHTML=warns.length?'<div id="alert-strip"><span>&#9888;&#65039;</span><span><strong>Maintenance planifiee :</strong> '+warns[0].title+' <a href="agenda.html" style="color:#7c3a00;font-weight:600;">Details &rarr;</a></span><button style="background:none;border:none;cursor:pointer;font-size:1.1rem;color:#7c3a00;margin-left:auto;" onclick="this.closest(\'#alert-strip\').style.display=\'none\'">&#215;</button></div>':'';
+
+  document.getElementById('hero-stats').innerHTML=
+    '<div class="stat today"><div class="num" id="today-ctr">'+VISITS.todayCount()+'</div><div class="lbl">Visites aujourd\'hui</div></div>'+
+    '<div class="stat"><div class="num">'+DB.section('livraisons').length+'</div><div class="lbl">Livraisons</div></div>'+
+    '<div class="stat"><div class="num">'+DB.section('evenements').filter(function(e){return e.archived&&e.type==='embarquement';}).length+'</div><div class="lbl">Webinaires</div></div>'+
+    '<div class="stat"><div class="num">'+DB.section('glossaire').filter(function(g){return g.status==='approved';}).length+'</div><div class="lbl">Termes glossaire</div></div>';
+
+  const actus=DB.section('actualites').slice(0,4);
+  document.getElementById('actualites-wrap').innerHTML=
+    admAdd('actualites','une actualite')+
+    actus.map(function(a){return'<div class="actu-item">'+
+      '<span class="adot" style="background:'+(dotColors[a.tagType]||'var(--teal)')+'"></span>'+
+      '<div style="flex:1;min-width:0;">'+(a.tag?'<span class="badge '+a.tagType+'">'+a.tag+'</span>':'')+
+      '<h4>'+a.title+'</h4><p>'+a.desc+'</p>'+
+      '<div class="actu-date">'+fmtLong(a.date)+(a.link?' &middot; <a href="'+a.link+'" style="color:var(--teal);">Voir &rarr;</a>':'')+
+      '</div>'+admCtrl('actualites',a.id)+'</div></div>';}).join('');
+
+  document.getElementById('alertes-wrap').innerHTML=
+    admAdd('alertes','une alerte')+
+    DB.section('alertes').map(function(a){
+      var cls={warn:'alert-warn',info:'alert-info',ok:'alert-ok'}[a.type]||'alert-info';
+      var badge={warn:'Planifiee',info:'Info',ok:'Resolue'}[a.type];
+      var bc={warn:'badge-amber',info:'badge-navy',ok:'badge-green'}[a.type];
+      return'<div class="alert-card '+cls+'"><span class="badge '+bc+'" style="margin-right:.55rem;">'+badge+'</span><strong>'+a.title+'</strong> - '+a.desc+admCtrl('alertes',a.id)+'</div>';
+    }).join('');
+
+  var evts=DB.section('evenements').filter(function(e){return!e.archived;}).slice(0,4);
+  document.getElementById('evts-wrap').innerHTML=evts.length?
+    evts.map(function(ev){var dd=fmtEv(ev.fullDate);return'<div class="evt-mini"><div class="edb"><div class="d">'+dd.d+'</div><div class="m">'+dd.m+'</div></div><div><h4>'+(typeIcons[ev.type]||'')+' '+ev.title+'</h4><p>'+(ev.time?ev.time+' - ':'')+ev.duration+' - '+ev.platform+(ev.capacity?' - '+ev.capacity:'')+'</p></div></div>';}).join('')
+    :'<p style="color:var(--muted);font-size:.85rem;">Aucun evenement a venir.</p>';
+}
+_refreshPage();
+VISITS.record().then(function(){
+  var el=document.getElementById('today-ctr');
+  if(el)el.textContent=VISITS.todayCount();
+});
+</script>
+</body></html>
