@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Ressources  -  Club Utilisateurs TDB RPE</title>
+<link rel="stylesheet" href="style.css"/>
+<style>
+.res-ext{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.15rem;box-shadow:var(--sh);display:flex;flex-direction:column;gap:.5rem;transition:.15s;}
+.res-ext:hover{border-color:var(--teal);}
+.res-ext-hdr{display:flex;align-items:center;gap:.75rem;}
+.res-logo{width:38px;height:38px;border-radius:6px;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.res-link{display:inline-flex;align-items:center;gap:.3rem;font-size:.78rem;font-weight:600;color:var(--accent);margin-top:.25rem;}
+.res-link:hover{color:var(--navy);}
+.cat-label{font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin:1.5rem 0 .65rem;padding-bottom:.4rem;border-bottom:1px solid var(--border);}
+</style>
+</head>
+<body>
+<nav id="nav">
+  <a href="index.html" class="brand"><div class="brand-logo">RPE</div><div><span class="brand-name">Club Utilisateurs</span><span class="brand-sub">Tableau de bord</span></div></a>
+  <div class="nav-links">
+    <a href="index.html">Accueil</a><a href="documentation.html">Documentation</a>
+    <a href="qr.html">Q&amp;R</a><a href="agenda.html">Agenda</a>
+    <a href="ressources.html">Ressources</a><a href="newsletter.html">Newsletters</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <button class="hamburger" onclick="toggleNav()">&#9776;</button>
+</nav>
+<div id="mob-menu">
+  <a href="index.html">Accueil</a><a href="documentation.html">Documentation</a>
+  <a href="qr.html">Q&amp;R</a><a href="agenda.html">Agenda</a>
+  <a href="ressources.html">Ressources</a><a href="newsletter.html">Newsletters</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<div class="pw">
+  <div class="sec-label">Écosystème</div>
+  <h1 class="page-title">Ressources &amp; outils externes</h1>
+  <p class="page-sub">Sites de r&eacute;f&eacute;rence pour compl&eacute;ter votre analyse avec des donn&eacute;es sur l'emploi, la formation et les territoires.</p>
+  <div id="res-add"></div>
+  <div id="res-body"></div>
+</div>
+
+<footer><strong>Club Utilisateurs  -  Tableau de bord RPE</strong><br/>
+<a href="mailto:admin-tdb@rpe.fr">admin-tdb@rpe.fr</a>
+    <a href="frequentation.html">Fradmin-tdb@rpe.fr</a>eacute;quentation du site</a> &nbsp;&middot;&nbsp;
+<button onclick="openLoginModal()" style="background:none;border:none;cursor:pointer;color:rgba(255,255,255,.4);font-size:.75rem;font-family:inherit;">&#128274;</button>
+</footer>
+<div id="toast"></div>
+<script src="data.js"></script><script src="visits.js"></script><script src="nav.js"></script><script src="admin.js"></script>
+<script>
+DB.init();VISITS.seed();initAdmin();VISITS.record();
+
+function _refreshPage(){
+  document.getElementById('res-add').innerHTML=admAdd('ressources','une ressource');
+  const items=DB.section('ressources');
+  const cats=[...new Set(items.map(r=>r.cat))];
+  document.getElementById('res-body').innerHTML=cats.map(cat=>{
+    const catItems=items.filter(r=>r.cat===cat);
+    return`<div class="cat-label">${cat}</div>
+    <div class="grid-2">
+      ${catItems.map(r=>`<div class="res-ext">
+        <div class="res-ext-hdr"><div class="res-logo">${r.icon||'🔗'}</div><h3 style="font-size:.9rem;">${r.name}</h3></div>
+        <p style="font-size:.8rem;color:var(--muted);">${r.desc||''}</p>
+        <a href="${r.url}" target="_blank" class="res-link">Acc&eacute;der &#8599;</a>
+        ${admCtrl('ressources',r.id)}
+      </div>`).join('')}
+    </div>`;
+  }).join('');
+}
+_refreshPage();
+</script>
+</body></html>
